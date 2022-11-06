@@ -17,7 +17,7 @@ public class B9A_Group4_Lab01 {
     public static void main(String[] args) {
 
         System.out.println("Hi there!! am Hanan Shihab :)!!!! ");
-        System.out.println("Hello! I am Samar");
+        System.out.println("Hello!!! I am Samar");
         System.out.println("Hello! I am Tagreed ");
         System.out.println("Alshaima Baattiy");
         
