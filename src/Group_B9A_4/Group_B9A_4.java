@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package b9a_group4_lab001;
+package Group_B9A_4;
 
 import java.util.Scanner;
 
@@ -11,7 +11,7 @@ import java.util.Scanner;
  *
  * @author Hanan
  */
-public class B9A_Group4_Lab001 {
+public class Group_B9A_4 {
 
     /**
      * @param args the command line arguments
@@ -40,7 +40,7 @@ public class B9A_Group4_Lab001 {
                 case 2:
                     
                     break;
-
+                
                 case 3:
                     break;
                 case 4:
