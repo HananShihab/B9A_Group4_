@@ -8,6 +8,7 @@ package Group_B9A_4;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.text.ParseException;
 import java.util.Scanner;
 
 
@@ -16,7 +17,7 @@ public class Group_B9A_4 {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args)throws FileNotFoundException {
+    public static void main(String[] args)throws FileNotFoundException, ParseException {
 
         Scanner inputUser = new Scanner(System.in);
         Scanner inputI = new Scanner(System.in);
@@ -33,6 +34,13 @@ public class Group_B9A_4 {
         orderList[3] = Menu(4, "Espresso", 12);
         orderList[4] = Menu(5, "Latte", 13);
 
+        bookTable[] tables = new bookTable[5];
+        bookTable[] listBooking = new bookTable[5];
+        listBooking[0] = GenerateBooking(111, true);
+        listBooking[1] = GenerateBooking(222, true);
+        listBooking[2] = GenerateBooking(333, false);
+        listBooking[3] = GenerateBooking(444, true);
+        listBooking[4] = GenerateBooking(555, true);
         int choice = 0;
         do {
             System.out.println("-----------------Magnesium Café System ---------------------\n");
@@ -84,8 +92,40 @@ public class Group_B9A_4 {
                     System.out.println("------------------------------");
 
                     break;
+                 //Tagreed part
+                 case 3:
+                    System.out.println("Table available:");
+                    for (int i = 0; i < listBooking.length; i++) {
+                        if (listBooking[i].isTableAvailable()) {
+                            System.out.println("Table ID  " + listBooking[i].getTableID());
+                        }
+                    }
+                    boolean tID = false;
+                    String fname = null;
+                    String lname = null;
+                    int indx = 0;
+                    System.out.println("Enter the ID of the table you want:");
+                    int tableID = inputUser.nextInt();
+                    int bIndex = searchBooking(listBooking, tableID);
+                    do {
+                        if (bIndex == -1) {
+                            System.out.println("There is  no available table with the ID you entered, enter another ID:");
+                            tableID = inputUser.nextInt();
+                            bIndex = searchBooking(listBooking, tableID);
 
-                case 3:
+                        }
+                    } while (bIndex == -1);
+
+                    listBooking[bIndex].setisTableAvailable(false);
+                    System.out.println("Enter your first name:");
+                    fname = inputUser.next();
+                    System.out.println("Enter your last name:");
+                    lname = inputUser.next();
+
+
+                    Customer cust = new Customer(fname, lname);
+                    System.out.println("The Table " + listBooking[bIndex].getTableID() + " is booked succesfully! For " + cust.getFname() + " " + cust.getLname());
+
                     break;
                 //Hanans part    
                 case 4:
@@ -123,6 +163,13 @@ public class Group_B9A_4 {
         System.out.println("-------------------------------");
     }
 
+   private static bookTable GenerateBooking(int id, boolean availability) throws ParseException {
+        int ID = id;
+        boolean avail = availability;
+        bookTable booking = new bookTable(ID, avail);
+        return booking;
+    }
+
     private static Order Menu(int id, String name, int price) {
         int ID = id;
         String orderName = name;
@@ -143,4 +190,13 @@ public class Group_B9A_4 {
         return -1;
     }
 
+    public static int searchBooking(bookTable[] listBooking, int tableID) {
+        for (int i = 0; i < listBooking.length; i++) {
+            if (listBooking[i].getTableID() == tableID && listBooking[i].isTableAvailable()) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
 }
