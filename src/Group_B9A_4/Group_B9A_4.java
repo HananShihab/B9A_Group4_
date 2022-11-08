@@ -5,6 +5,9 @@
  */
 package Group_B9A_4;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 
@@ -13,10 +16,16 @@ public class Group_B9A_4 {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args)throws FileNotFoundException {
 
         Scanner inputUser = new Scanner(System.in);
+        Scanner inputI = new Scanner(System.in);
         Order[] orderList = new Order[5];
+        
+        File outputFile = new File("Suggestions.txt");
+        PrintWriter suggetionFile = new PrintWriter(outputFile);
+        File outputFile2 = new File("SongList.txt");
+        PrintWriter songFile = new PrintWriter(outputFile2);
 
         orderList[0] = Menu(1, "Americano", 12);
         orderList[1] = Menu(2, "Mocha", 13);
@@ -35,7 +44,7 @@ public class Group_B9A_4 {
             System.out.println("6 exit\n");
             System.out.println("------------------------------------------------------------");
             System.out.println("Enter your choice:");
-            choice = inputUser.nextInt();
+            choice = inputI.nextInt();
 
             switch (choice) {
                 case 1:
@@ -78,14 +87,28 @@ public class Group_B9A_4 {
 
                 case 3:
                     break;
+                //Hanans part    
                 case 4:
+                    System.out.println("Enter your suggetion:");
+                    String suggestion = inputUser.nextLine();
+                    suggetionFile.append(suggestion);
+                    System.out.println("Your suggestion will be put into consideration!");
                     break;
+                // Shaimas part    
                 case 5:
+                    System.out.println("Enter the song you want to hear:");
+                    String enteredSong = inputUser.next();
+                    songFile.append(enteredSong);
+                    System.out.println("Your Song will be added to the song list!");
                     break;
 
             }
         } while (choice != 6);
+        suggetionFile.flush();
+        suggetionFile.close();
 
+        songFile.flush();
+        songFile.close();
     }
 
     public static void printMenu() {
